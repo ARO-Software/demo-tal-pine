@@ -94,9 +94,17 @@
     'res.close': 'Done',
 
     'wa.open': 'Open WhatsApp', 'visit.wa': 'WhatsApp', 'visit.waText': 'Message us', 'dock.wa': 'WhatsApp',
-    'msg.hello': 'Hello Tal Pine,', 'msg.event': 'New event request', 'msg.table': 'Table request',
+    'msg.hello': 'Hello Tal Pine,', 'msg.event': 'New event request', 'msg.ref': 'Reference', 'msg.table': 'Table request',
     'msg.name': 'Name', 'msg.mobile': 'Mobile', 'msg.email': 'Email', 'msg.notes': 'Notes', 'msg.time': 'Time', 'msg.seat': 'Seating',
     'msg.footer': 'Sent from the Tal Pine website', 'msg.hi': 'Hello Tal Pine, I have a question.',
+
+    'faq.title': 'Questions we get asked',
+    'faq.q1': 'Where is Tal Pine?', 'faq.a1': 'On Airport Road in the Abdoun corridor, Amman, on a hill of pine trees.',
+    'faq.q2': 'What are the opening hours?', 'faq.a2': 'Every day from 12 pm to 1 am.',
+    'faq.q3': 'Can Tal Pine host a wedding, and for how many guests?', 'faq.a3': 'Yes. The White Terrace hosts weddings of up to 700 guests, and smaller spaces take katb kitab, engagements and henna nights from 10 guests.',
+    'faq.q4': 'Is there live music?', 'faq.a4': 'Yes, live oud and qanun from Wednesday to Friday evenings.',
+    'faq.q5': 'Is it good for families with kids?', 'faq.a5': 'Yes. There is shaded seating under the pines, colored canopies and a play area for kids.',
+    'faq.q6': 'How do I book a table or an event?', 'faq.a6': 'Use Book a table or the wedding planner on this website. Your request opens in WhatsApp with all the details filled in. You can also call (06) 429 9999.',
   };
 
   const ar = {
@@ -192,9 +200,17 @@
     'res.close': 'تمام',
 
     'wa.open': 'افتح واتساب', 'visit.wa': 'واتساب', 'visit.waText': 'راسلنا', 'dock.wa': 'واتساب',
-    'msg.hello': 'مرحباً تل الصنوبر،', 'msg.event': 'طلب مناسبة جديد', 'msg.table': 'طلب حجز طاولة',
+    'msg.hello': 'مرحباً تل الصنوبر،', 'msg.event': 'طلب مناسبة جديد', 'msg.ref': 'رقم الطلب', 'msg.table': 'طلب حجز طاولة',
     'msg.name': 'الاسم', 'msg.mobile': 'الموبايل', 'msg.email': 'البريد', 'msg.notes': 'ملاحظات', 'msg.time': 'الساعة', 'msg.seat': 'الجلسة',
     'msg.footer': 'أُرسل من موقع تل الصنوبر', 'msg.hi': 'مرحباً تل الصنوبر، عندي استفسار.',
+
+    'faq.title': 'أسئلة تصلنا كثيراً',
+    'faq.q1': 'وين تل الصنوبر؟', 'faq.a1': 'في عمّان، على طريق المطار في كوريدور عبدون، على تلّة من أشجار الصنوبر.',
+    'faq.q2': 'شو أوقات الدوام؟', 'faq.a2': 'يومياً من 12 ظهراً حتى 1 بعد منتصف الليل.',
+    'faq.q3': 'هل تستضيفون الأعراس؟ ولكم ضيف؟', 'faq.a3': 'نعم. التراس الأبيض يستقبل أعراساً حتى 700 ضيف، والمساحات الأصغر تناسب كتب الكتاب والخطوبة وليالي الحنّاء من 10 ضيوف.',
+    'faq.q4': 'في موسيقى حيّة؟', 'faq.a4': 'نعم، عزف حيّ على العود والقانون مساء الأربعاء حتى الجمعة.',
+    'faq.q5': 'هل المكان مناسب للعائلات والأطفال؟', 'faq.a5': 'نعم. جلسات مظلّلة تحت الصنوبر، خيم ملوّنة ومنطقة ألعاب للأطفال.',
+    'faq.q6': 'كيف أحجز طاولة أو مناسبة؟', 'faq.a6': 'من زر احجز طاولة أو مخطّط الأعراس على الموقع، وطلبك يُفتح في واتساب بكل التفاصيل. أو اتصل على 06 429 9999.',
   };
 
   const dict = { en, ar };

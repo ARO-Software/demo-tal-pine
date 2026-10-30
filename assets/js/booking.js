@@ -250,7 +250,8 @@
   const message = ({ ref, name, phone, email, notes }) => {
     const lines = [
       t('msg.hello'),
-      `*${t('msg.event')}* (${ref})`,
+      `*${t('msg.event')}*`,
+      `${t('msg.ref')}: ${ref}`,
       '',
       `${t('sum.occasion')}: ${L(occ().name)}`,
       `${t('sum.date')}: ${fmtDate(state.date)} (${t('wiz.' + state.slot)})`,

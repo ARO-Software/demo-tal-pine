@@ -594,6 +594,17 @@ html[lang="ar"] .concept__name { line-height: 1.3; font-weight: 600; }
 .visit__map { min-height: 380px; border-radius: var(--arch); overflow: hidden; background: var(--pine-2); }
 .visit__map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: saturate(.75) contrast(1.05); }
 
+.faq { margin-top: clamp(64px, 8vw, 110px); }
+.faq .h-sub { margin-bottom: 18px; }
+.faq__list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+@media (max-width: 760px) { .faq__list { grid-template-columns: 1fr; } }
+.faq details { border-top: 1px solid rgba(251, 243, 226, .1); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 18px; padding: 18px 0; font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; line-height: 1.15; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-ui); font-weight: 300; font-size: 1.4rem; color: var(--saffron); transition: transform .35s var(--ease); flex: none; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--candle-2); padding-bottom: 20px; max-width: 54ch; font-size: var(--t-sm); }
+html[lang="ar"] .faq summary { line-height: 1.5; font-weight: 600; }
 .footer { background: var(--pine-3); padding-block: 56px calc(56px + env(safe-area-inset-bottom)); color: var(--candle-2); font-size: var(--t-sm); }
 .footer__inner { display: grid; justify-items: center; text-align: center; gap: 12px; }
 .logo--footer { width: 96px; margin-bottom: 8px; }
