@@ -15,7 +15,11 @@ A bilingual (English / Arabic, RTL) website concept for **Tal Pine**, a pine-for
 
 ## Before going live
 
-These are demo values to confirm with the venue: space capacities, menu lines, packages, wedding availability (simulated), and live music days. The booking and reservation forms show a confirmation but don't send anywhere yet; connect them to WhatsApp Business, email or a booking backend.
+These are demo values to confirm with the venue: space capacities, menu lines, packages, wedding availability (simulated), and live music days.
+
+## WhatsApp
+
+Event requests and table bookings open WhatsApp with a filled-in message to **+962 7 7800 6800** (set in `assets/js/data.js`, `WA_DEFAULT`). For a live demo you can route them to another phone by opening the site with `?wa=07XXXXXXXX`; the device remembers it until you open `?wa=reset`.
 
 ## Run locally
 

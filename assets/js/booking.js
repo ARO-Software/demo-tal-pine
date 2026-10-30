@@ -180,7 +180,7 @@
       ['guests', t('sum.guests'), String(state.guests)],
       ['space', t('sum.space'), none(spc() && L(spc().name))],
       ['package', t('sum.package'), L(pkg().name)],
-      ['addons', t('sum.addons'), state.addons.size ? [...state.addons].map((id) => L(TP.addons.find((a) => a.id === id).name)).join(LANG === 'ar' ? '، ' : ', ') : t('sum.none')],
+      ['addons', t('sum.addons'), state.addons.size ? addonNames() : t('sum.none')],
     ];
     $('#summaryList').innerHTML = rows.map(([k, label, v]) =>
       `<div><dt>${label}</dt><dd class="${v ? '' : 'is-empty'} ${k === changed ? 'flash' : ''}">${v || t('sum.empty')}</dd></div>`).join('');
@@ -246,18 +246,43 @@
 
   /* ---------- submit ---------- */
   let lastRequest = null;
+  const addonNames = () => [...state.addons].map((id) => L(TP.addons.find((a) => a.id === id).name)).join(LANG === 'ar' ? '، ' : ', ');
+  const message = ({ ref, name, phone, email, notes }) => {
+    const lines = [
+      t('msg.hello'),
+      `*${t('msg.event')}* (${ref})`,
+      '',
+      `${t('sum.occasion')}: ${L(occ().name)}`,
+      `${t('sum.date')}: ${fmtDate(state.date)} (${t('wiz.' + state.slot)})`,
+      `${t('sum.guests')}: ${state.guests}`,
+      `${t('sum.space')}: ${L(spc().name)}`,
+      `${t('sum.package')}: ${L(pkg().name)}`,
+    ];
+    if (state.addons.size) lines.push(`${t('sum.addons')}: ${addonNames()}`);
+    lines.push('', `${t('msg.name')}: ${name}`, `${t('msg.mobile')}: ${phone}`);
+    if (email) lines.push(`${t('msg.email')}: ${email}`);
+    if (notes) lines.push(`${t('msg.notes')}: ${notes}`);
+    lines.push('', `_${t('msg.footer')}_`);
+    return lines.join('\n');
+  };
+
   const submit = () => {
     const ref = `TP-${state.date.slice(5).replace('-', '')}-${String(Math.floor(hash(Date.now() + '') * 900) + 100)}`;
     const name = $('#fName').value.trim();
     const phone = $('#fPhone').value.trim();
+    const email = $('#fEmail').value.trim();
+    const notes = $('#fNotes').value.trim();
+    const wa = TP.waLink(message({ ref, name, phone, email, notes }));
+    TP.waOpen(wa);
     lastRequest = { ref, name, phone, date: state.date, occasion: L(occ().name), space: L(spc().name), guests: state.guests };
     $('#wizDone').innerHTML = `
       <svg class="done-mark" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="40"/><path d="M28 46l11 11 23-24"/></svg>
       <h3>${t('done.title')}</h3>
-      <p>${t('done.body', { name, phone: `<span dir="ltr">${phone}</span>`, date: fmtDate(state.date) })}</p>
+      <p>${t('done.body', { name: TP.esc(name), phone: `<span dir="ltr">${TP.esc(phone)}</span>`, date: fmtDate(state.date) })}</p>
       <span class="ref" dir="ltr">${t('done.ref', { ref })}</span>
       <div class="done-actions">
-        <button type="button" class="btn btn--saffron" id="icsBtn">${t('done.ics')}</button>
+        <a class="btn btn--saffron" href="${wa}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.4 18.6z"/><path d="M9.2 8.8c.2 2.3 2.7 4.8 5.1 5.1l1-1.1-1.6-.9-.7.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.7-.9-1.6z"/></svg>${t('wa.open')}</a>
+        <button type="button" class="btn btn--line" id="icsBtn">${t('done.ics')}</button>
         <a class="btn btn--line" href="tel:+96264299999">${t('done.call')}</a>
         <button type="button" class="btn btn--line" id="againBtn">${t('done.again')}</button>
       </div>`;

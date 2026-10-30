@@ -359,21 +359,47 @@
     }
     const dateStr = new Intl.DateTimeFormat(locale(), { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date($('#rDate').value + 'T12:00:00'));
     const timeStr = $('#rTime').selectedOptions[0].textContent;
+    const seat = TP.seats.find((s) => s.id === res.seat);
+    const msg = [
+      t('msg.hello'),
+      `*${t('msg.table')}*`,
+      '',
+      `${t('res.date')}: ${dateStr}`,
+      `${t('msg.time')}: ${timeStr}`,
+      `${t('res.party')}: ${res.party}`,
+      `${t('msg.seat')}: ${seat.key ? t(seat.key) : L(seat.name)}`,
+      '',
+      `${t('msg.name')}: ${name.value.trim()}`,
+      `${t('msg.mobile')}: ${phone.value.trim()}`,
+      '',
+      `_${t('msg.footer')}_`,
+    ].join('\n');
+    const wa = TP.waLink(msg);
+    TP.waOpen(wa);
     $('#resFields').hidden = true;
     const done = $('#resDone');
     done.innerHTML = `
       <svg class="done-mark" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="40"/><path d="M28 46l11 11 23-24"/></svg>
       <h3>${t('res.done')}</h3>
-      <p>${t('res.doneBody', { phone: `<span dir="ltr">${phone.value.trim()}</span>`, party: res.party, date: dateStr, time: timeStr })}</p>
-      <div class="done-actions"><button type="button" class="btn btn--saffron" data-close>${t('res.close')}</button></div>`;
+      <p>${t('res.doneBody', { party: res.party, date: dateStr, time: timeStr })}</p>
+      <div class="done-actions">
+        <a class="btn btn--saffron" href="${wa}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.4 18.6z"/><path d="M9.2 8.8c.2 2.3 2.7 4.8 5.1 5.1l1-1.1-1.6-.9-.7.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.7-.9-1.6z"/></svg>${t('wa.open')}</a>
+        <button type="button" class="btn btn--line" data-close>${t('res.close')}</button>
+      </div>`;
     done.hidden = false;
     done.focus();
   });
 
+  /* ---------------- WhatsApp links ---------------- */
+  const renderWA = () => {
+    const href = TP.waLink(t('msg.hi'));
+    $$('[data-wa]').forEach((a) => { a.href = href; });
+  };
+
   /* ---------------- language ---------------- */
   $('#langToggle').addEventListener('click', () => setLang(LANG === 'ar' ? 'en' : 'ar'));
   document.addEventListener('langchange', () => {
-    renderSpaces(); renderMenu(); renderOpen(); renderClock(); revealRail(); reveal();
+    renderSpaces(); renderMenu(); renderOpen(); renderClock(); renderWA(); revealRail(); reveal();
     if (dlg.open) { buildTimes(); buildSeats(); }
     if (hasGSAP()) { pinSpaces(); ScrollTrigger.refresh(); }
   });
@@ -381,6 +407,7 @@
   /* ---------------- boot ---------------- */
   renderSpaces();
   renderMenu();
+  renderWA();
   renderOpen();
   renderClock();
   setInterval(() => { renderClock(); renderOpen(); }, 30000);

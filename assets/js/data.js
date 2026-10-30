@@ -2,6 +2,29 @@
 window.TP = (function () {
   const img = (n) => `assets/img/${n}.webp`;
 
+  /* WhatsApp line that receives requests. For a live demo, open the site with ?wa=07XXXXXXXX
+     (remembered on that device); ?wa=reset goes back to the venue's number. */
+  const WA_DEFAULT = '962778006800';
+  const waNumber = () => {
+    let n = null;
+    try {
+      const q = new URLSearchParams(location.search).get('wa');
+      if (q === 'reset') localStorage.removeItem('talpine.wa');
+      else if (q) localStorage.setItem('talpine.wa', q);
+      n = localStorage.getItem('talpine.wa');
+    } catch (e) {
+      n = new URLSearchParams(location.search).get('wa');
+    }
+    let d = String(n && n !== 'reset' ? n : WA_DEFAULT).replace(/\D/g, '');
+    if (d.startsWith('00')) d = d.slice(2);
+    if (d.startsWith('0')) d = '962' + d.slice(1);
+    return d;
+  };
+  const waLink = (text) => `https://wa.me/${waNumber()}?text=${encodeURIComponent(text)}`;
+  /* open inside the click that triggered it, so browsers don't block it */
+  const waOpen = (url) => { const w = window.open(url, '_blank'); if (w) w.opener = null; };
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
   const spaces = [
     {
       id: 'white', cap: 700, min: 120, img: img('v-dome'), alt: { en: 'White dome pavilion with a chandelier, lit in violet at night', ar: 'قبّة بيضاء بثريّا مضاءة ليلاً' },
@@ -154,5 +177,5 @@ window.TP = (function () {
     ar: ['محطّة مقبّلات مع خبز صاج طازج', 'مشاوي حيّة: كباب وشيش طاووق وريش', 'منسف وقوزي لحم', 'كنافة تُحضَّر أمام الضيوف', 'سفرة فواكه وقهوة عربية'],
   };
 
-  return { spaces, dishes, also, occasions, packages, addons, seats, moods, buffets, img };
+  return { spaces, dishes, also, occasions, packages, addons, seats, moods, buffets, img, waNumber, waLink, waOpen, esc };
 })();
